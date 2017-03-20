@@ -47,4 +47,11 @@ public class MathEndpointControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(content().string("30 + 5 = 35"));
     }
+
+    @Test
+    public void testSumEndpoint() throws Exception {
+        this.mvc.perform(get("/math/sum?n=4&n=5&n=6").accept(MediaType.ALL))
+                .andExpect(status().isOk())
+                .andExpect(content().string("4 + 5 + 6 = 15"));
+    }
 }
