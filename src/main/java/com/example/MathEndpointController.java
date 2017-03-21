@@ -25,12 +25,20 @@ public class MathEndpointController {
                                                  @RequestParam int x,
                                                  @RequestParam int y){
         return MathService.calculate(operation, x, y);
-
     }
 
     @GetMapping("/sum")
     public String getSumFromQueryString(@RequestParam MultiValueMap<String, String> numbers){
         return MathService.sum(numbers);
+    }
+
+    @RequestMapping("/volume/{length}/{width}/{height}")
+    public String volumeFromPathVariables(Cuboid cuboid){
+        cuboid.setVolume();
+        return String.format("The volume of a %dx%dx%d rectangle is %d", cuboid.getLength(),
+                                                                         cuboid.getWidth(),
+                                                                         cuboid.getHeight(),
+                                                                         cuboid.getVolume());
     }
 
 
