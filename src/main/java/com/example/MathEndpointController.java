@@ -1,10 +1,7 @@
 package com.example;
 
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,6 +36,18 @@ public class MathEndpointController {
                                                                          cuboid.getWidth(),
                                                                          cuboid.getHeight(),
                                                                          cuboid.getVolume());
+    }
+
+    @PostMapping("/area")
+    public String area(Shape shape){
+        if(shape.isValid() == "Invalid") return "Invalid";
+        shape.setArea();
+        if(shape.getType() == "circle"){
+            return String.format("Area of a circle with a radius of %d is %.5f", shape.getRadius(), shape.getArea());
+        } else {
+            return String.format("Area of a %dx%d rectangle is %.0f", shape.getWidth(), shape.getHeight(), shape.getArea());
+        }
+
     }
 
 
