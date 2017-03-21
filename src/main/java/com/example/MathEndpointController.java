@@ -24,61 +24,13 @@ public class MathEndpointController {
     public String getCalculationFromQueryStrings(@RequestParam(defaultValue = "add") String operation,
                                                  @RequestParam int x,
                                                  @RequestParam int y){
-        int solution = 0;
-        String operator = "+";
-        switch (operation) {
-            case "add":
-                solution = x + y;
-                operator = "+";
-                break;
-            case "subtract":
-                solution = x - y;
-                operator = "-";
-                break;
-            case "multiply":
-                solution = x * y;
-                operator = "*";
-                break;
-            case "divide":
-                solution = x / y;
-                operator = "/";
-                break;
-        }
-        return String.format("%d %s %d = %d", x, operator, y, solution);
+        return MathService.calculate(operation, x, y);
+
     }
 
     @GetMapping("/sum")
     public String getSumFromQueryString(@RequestParam MultiValueMap<String, String> numbers){
-        StringBuilder statement = new StringBuilder();
-        int solution = 0;
-        List<String> numberSet = numbers.get("n");
-        ListIterator<String> numberIterator = numberSet.listIterator();
-
-        for (String n : numberSet){
-            int number = Integer.parseInt(n);
-
-            solution +=number;
-            statement.append(number);
-            statement.append(" ");
-            numberIterator.next();
-
-            if(numberIterator.hasNext()){
-               statement.append("+ ");
-            }
-        }
-
-        statement.append("= ");
-        statement.append(solution);
-
-        return statement.toString();
-
-
-
-
-
-
-
-
+        return MathService.sum(numbers);
     }
 
 
